@@ -1,6 +1,6 @@
 /* Class: CISC 3130
- * Section: TY2
- * EmplId:
+ * Section: TY9
+ * EmplId: 23975673
  * Name: Jonathan Scarpelli
  */
 
@@ -23,18 +23,6 @@ class SongHistoryList {
     count = 0;
   }
 
-  /* Removes front element from the queue */
-  public void dequeue() {
-    /* Checks for queue underflow */
-    if (isEmpty()) {
-      System.out.println("Error: Underflow");
-      System.exit(1);
-    }
-
-    front = (front + 1) % capacity;
-    count--;
-  }
-
   /* Adds an item to the queue */
 public void addSong(String item) {
   /* Checks for queue overflow */
@@ -47,6 +35,18 @@ public void addSong(String item) {
   arr[rear] = item;
   count++;
 }
+
+  /* Removes front element from the queue */
+  public void dequeue() {
+    /* Checks for queue underflow */
+    if (isEmpty()) {
+      System.out.println("Error: Underflow");
+      System.exit(1);
+    }
+
+    front = (front + 1) % capacity;
+    count--;
+  }
 
   /* Returns front element in the queue */
   public String lastListened() {
@@ -75,13 +75,13 @@ public void addSong(String item) {
 
 /* The Playlist implementation */
 class Playlist {
-  public Song head;
+  private Song head;
   SongHistoryList history = new SongHistoryList();
   /* A node represents a song */
   class Song {
-    public String data;
-    public Song next;
-    public Song(String artist) {
+    private String data;
+    private Song next;
+    private Song(String artist) {
       data = artist;
       next = null;
     }
@@ -161,9 +161,9 @@ class MyQueue {
         if (country[1].replace("\"", "").trim().equals("")) {
         } else if (country[1].replace("\"", "").trim().equals("10")) {
           values.add("10,000 Hours (with Justin Bieber)");
-        } else if (country[1].replace("\"", "").trim().equals("next")) {
-          values.add("Ariana Grande");
-        } else if (!country[1].replace("\"", "").trim().equals("Artist")) {
+        } else if (country[1].replace("\"", "").trim().equals("thank u")) {
+          values.add("thank u, next");
+        } else if (!country[1].replace("\"", "").trim().equals("Track Name")) {
           values.add(country[1].replace("\"", "").trim());
         }
       }
@@ -183,7 +183,7 @@ class MyQueue {
   }
 }
 
-/* Test driver class */
+/* Test class */
 public class Main {
 
   public static void main(String[] args) {
