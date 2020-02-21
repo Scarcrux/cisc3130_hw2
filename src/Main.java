@@ -155,16 +155,16 @@ class MyQueue {
       br = new BufferedReader(new FileReader(csvFile));
       while ((line = br.readLine()) != null) {
         // Uses comma as a delimiter
-        String[] country = line.split(cvsSplitBy);
+        String[] songInfo = line.split(cvsSplitBy);
 
         /* Edge case handling */
-        if (country[1].replace("\"", "").trim().equals("")) {
-        } else if (country[1].replace("\"", "").trim().equals("10")) {
+        if (songInfo[1].replace("\"", "").trim().equals("")) {
+        } else if (songInfo[1].replace("\"", "").trim().equals("10")) {
           values.add("10,000 Hours (with Justin Bieber)");
-        } else if (country[1].replace("\"", "").trim().equals("thank u")) {
+        } else if (songInfo[1].replace("\"", "").trim().equals("thank u")) {
           values.add("thank u, next");
-        } else if (!country[1].replace("\"", "").trim().equals("Track Name")) {
-          values.add(country[1].replace("\"", "").trim());
+        } else if (!songInfo[1].replace("\"", "").trim().equals("Track Name")) {
+          values.add(songInfo[1].replace("\"", "").trim());
         }
       }
     } catch (FileNotFoundException error) {
