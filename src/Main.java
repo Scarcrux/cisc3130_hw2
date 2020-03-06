@@ -87,7 +87,7 @@ class Playlist {
     }
   }
 
-  /* Create a Song */
+  /* Creates a Song */
   Song newSong(String data) {
     Song s = new Song(data);
     return s;
@@ -134,9 +134,24 @@ class Playlist {
   /* Prints the linked list or playlist */
   void printList() {
     Song temp = head;
+    StringBuilder sb = new StringBuilder();
+    sb.append("Song");
+    sb.append('\n');
+
+    /* Prints to console and builds string for external CSV */
     while (temp != null) {
       System.out.print(temp.data + ", ");
+      sb.append(temp.data);
+      sb.append('\n');
       temp = temp.next;
+    }
+
+    /* Writes the playlist to CSV */
+    File csvOutputFile = new File("../data/Spotify Charts Monthly Playlist.csv");
+    try (PrintWriter  writer= new PrintWriter(csvOutputFile)) {
+      writer.write(sb.toString());
+    } catch (FileNotFoundException error) {
+      System.out.println(error);
     }
   }
 }
@@ -187,19 +202,20 @@ class MyQueue {
 public class Main {
 
   public static void main(String[] args) {
+    /* List of CSVs to be read */
     String[] myFiles = {"../data/regional-global-weekly-2020-01-03--2020-01-10.csv",
       "../data/regional-global-weekly-2020-01-10--2020-01-17.csv",
       "../data/regional-global-weekly-2020-01-17--2020-01-24.csv",
       "../data/regional-global-weekly-2020-01-24--2020-01-31.csv"};
 
+    /* Extracts song info from Spotify playlists */
     ArrayList<String> allTheWeeks = new ArrayList<>();
-
     for (int i=0; i < myFiles.length; i++) {
       MyQueue dataExtract = new MyQueue(myFiles[i]);
       allTheWeeks.addAll(dataExtract.values);
     }
 
-    /* Test playlist */
+    /* Test playlist with file and console output */
     Playlist list = new Playlist();
     allTheWeeks.forEach(name -> list.sortedInsert(list.newSong(name)));
     list.printList();
